@@ -21,6 +21,9 @@ case $(basename "$1") in
   zsh)
     ${test_shell} --version | head -n 1 | sed -ne 's/[^0-9]*\(\([0-9]\.\)\{0,4\}[0-9][^.]\).*/\1/p'
     ;;
+  sh)
+    ${test_shell} --version | head -n 1 | sed -ne 's/[^0-9]*\(\([0-9]\.\)\{0,4\}[0-9][^.]\).*/\1/p'
+    ;;
   *)
     echo "Unknown shell: $1"
     exit 1
