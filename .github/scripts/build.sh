@@ -2,7 +2,7 @@
 
 test_name=$1
 test_shell=$2
-test_version=$(sh version.sh $2)
+test_version=$(sh .github/scripts/version.sh $2)
 
 find sps/* -type d | while read -r snippet; do
   echo "==> ${snippet}"
@@ -21,4 +21,9 @@ find sps/* -type d | while read -r snippet; do
   echo "${test_name} ${test_version} ${test_status}" >> "${snippet}/output-checks.txt"
   sort "${snippet}/output-checks.txt" | uniq > "${snippet}/output-checks.tmp"
   mv "${snippet}/output-checks.tmp" "${snippet}/output-checks.txt"
+
+  sed -n "/## Compatibility/q;p" "${snippet}/README.md" > "${snippet}/README.tmp"
+
+  sh .github/scripts/readme.sh "${snippet}" >> "${snippet}/README.tmp"
+  mv "${snippet}/README.tmp" "${snippet}/README.md"
 done
