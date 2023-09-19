@@ -13,6 +13,7 @@ done
 table_header="${table_header}|"
 table_header_line="${table_header_line}|"
 
+echo "## Compatibility"
 echo "${table_header}"
 echo "${table_header_line}"
 
