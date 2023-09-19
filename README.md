@@ -1,5 +1,6 @@
 # Shell Programming Standards
 
-| Rule                                              | POSIX |
-|---------------------------------------------------| --- |
-| [](sps/if-statement-with-multiple-and-conditions) | `#!/bin/sh` |
+
+## if
+
+- [`if` statement with multiple `and` conditions](sps/if-statement-with-multiple-and-conditions)
