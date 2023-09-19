@@ -1,6 +1,7 @@
 
 build:
-	@bash .github/scripts/build.sh
+	@bash .github/scripts/build.sh SH /bin/sh
+	@bash .github/scripts/build.sh BASH /bin/bash
 
 
 test:
