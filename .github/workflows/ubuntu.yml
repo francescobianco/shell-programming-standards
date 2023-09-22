@@ -6,14 +6,15 @@ env:
   FORCE_COLOR: 1
 
 jobs:
-  ubuntu-bionic:
-    runs-on: ubuntu-latest
-    if: "!contains(github.event.head_commit.message, 'ci skip')"
+  ubuntu:
     permissions:
       contents: write
     strategy:
       max-parallel: 1
       matrix:
+        os:
+          - ubuntu-22.04
+          - ubuntu-20.04
         shell:
           - {name: Dash,    bin: dash,        package: dash}
           - {name: Bash,    bin: bash,        package: bash}
@@ -24,6 +25,8 @@ jobs:
           - {name: Yash,    bin: yash,        package: yash}
           - {name: Zsh,     bin: zsh,         package: zsh}
       fail-fast: false
+
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - run: sudo apt-get install -y ${{ matrix.shell.package }}
