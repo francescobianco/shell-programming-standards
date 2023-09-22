@@ -7,7 +7,7 @@ case $(basename "$1") in
     ${test_shell} --version | head -n 1 | sed -ne 's/[^0-9]*\(\([0-9]\.\)\{0,4\}[0-9][^.]\).*/\1/p'
     ;;
   dash)
-    ${test_shell} --version | head -n 1 | sed -ne 's/[^0-9]*\(\([0-9]\.\)\{0,4\}[0-9][^.]\).*/\1/p'
+    dpkg -s dash | grep Version | sed -ne 's/[^0-9]*\(\([0-9]\.\)\{0,4\}[0-9][^.]\).*/\1/p'
     ;;
   ksh)
     ${test_shell} --version | head -n 1 | sed -ne 's/[^0-9]*\(\([0-9]\.\)\{0,4\}[0-9][^.]\).*/\1/p'

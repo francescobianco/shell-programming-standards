@@ -28,4 +28,5 @@ jobs:
       - uses: actions/checkout@v2
       - run: sudo apt-get install -y ${{ matrix.shell.package }}
       - run: make build shell_name="${{ matrix.shell.name }}" shell_binary="${{ matrix.shell.bin }}"
+      - run: make ci-pull
       - uses: stefanzweifel/git-auto-commit-action@v4
