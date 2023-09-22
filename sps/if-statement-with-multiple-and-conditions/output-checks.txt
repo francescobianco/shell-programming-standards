@@ -1,4 +1,5 @@
 BASH 5.1.16 ok
+Bash 5.1.16 ok
 SH Unknown shell: /bin/sh ok
 bash 5.1.16 ok
 zsh 5.9  ok
