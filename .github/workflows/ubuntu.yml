@@ -13,18 +13,19 @@ jobs:
       contents: write
     strategy:
       matrix:
-        shells:
-          - {shell: dash,        package: dash}
-          - {shell: bash,        package: bash}
-          - {shell: busybox ash, package: busybox}
-          - {shell: ksh,         package: ksh}
-          - {shell: mksh,        package: mksh}
-          - {shell: posh,        package: posh}
-          - {shell: yash,        package: yash}
-          - {shell: zsh,         package: zsh}
+        shell:
+          - {name: Dash,    bin: dash,        package: dash}
+          - {name: Bash,    bin: bash,        package: bash}
+          - {name: Busybox, bin: busybox ash, package: busybox}
+          - {name: Ksh,     bin: ksh,         package: ksh}
+          - {name: Mksh,    bin: mksh,        package: mksh}
+          - {name: Posh,    bin: posh,        package: posh}
+          - {name: Yash,    bin: yash,        package: yash}
+          - {name: Zsh,     bin: zsh,         package: zsh}
       fail-fast: false
     steps:
       - uses: actions/checkout@v2
-      - run: sudo apt-get install -y ${{ matrix.shells.package }}
-      - run: make build shell_name="${{ matrix.shells.shell }}" shell_binary="${{ matrix.shells.shell }}"
+      - run: sudo apt-get install -y ${{ matrix.shell.package }}
+      - run: make build shell_name="${{ matrix.shell.name }}" shell_binary="${{ matrix.shell.bin }}"
+      - run: git pull -X theirs --no-edit --no-rebase
       - uses: stefanzweifel/git-auto-commit-action@v4
