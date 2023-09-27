@@ -14,3 +14,10 @@ test:
 
 test-readme:
 	@bash .github/scripts/readme.sh sps/if-statement-with-multiple-and-conditions
+
+
+test-os-info:
+	@bash os/run os/fedora/zsh/stable sps/build
+
+test-os:
+	@bash os/shell os/fedora/zsh/stable

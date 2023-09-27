@@ -1,0 +1,11 @@
+#!/bin/bash
+
+os_image=$1
+
+if [ -z "${os_image}" ]; then
+  echo "Missing os image"
+  exit 1
+fi
+
+docker build -t "${os_image}" "${os_image}"
+docker run --rm -it -v "$(pwd):/${os_image}" -w "/${os_image}" "${os_image}" /bin/bash -c "\$SHELL"
