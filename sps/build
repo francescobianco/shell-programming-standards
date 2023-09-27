@@ -7,11 +7,54 @@ if [ "$1" = "--all" ]; then
   exit 0
 fi
 
+update_readme() {
+  sed -n "/## Compatibility/q;p" "${snippet}/README.md" > "${snippet}/README.tmp"
 
+  sps_dir=$1
+  shell_list=$(awk '{print $1","$2}' "${sps_dir}/output-checks.txt" | sort -u | tr '\n' ' ')
+  table_header=
+  table_header_line=
+  for shell_column in $shell_list; do
+    os_name=$(echo "${shell_column}" | cut -d',' -f1)
+    shell_name=$(echo "${shell_column}" | cut -d',' -f2)
+    table_header="${table_header}| ![${os_name}](../../os/${os_name}/logo.png)<br>${shell_name} "
+    table_header_line="${table_header_line}|:---:"
+  done
+  table_header="${table_header}|"
+  table_header_line="${table_header_line}|"
 
+  echo "## Compatibility"
+  echo "${table_header}"
+  echo "${table_header_line}"
+
+  for shell_row_index in $(seq 1 10); do
+    table_row=""
+    for shell_column in $shell_list; do
+      table_cell="-"
+      version_count=0
+      while read check_entry; do
+         os_name=$(echo "${check_entry}" | cut -d ' ' -f1)
+         shell_name=$(echo "${check_entry}" | cut -d ' ' -f2)
+         shell_version=$(echo "${check_entry}" | cut -d ' ' -f3)
+         shell_status=$(echo "${check_entry}" | cut -d ' ' -f4)
+         shell_flag=$([ "$shell_status" = "ok" ] && echo "✅" || echo "❌")
+         [ "${shell_column}" != "${os_name},${shell_name}" ] && continue
+         version_count=$((version_count + 1))
+         [ "${version_count}" != "${shell_row_index}" ] && continue
+         table_cell="${shell_version}<br>${shell_flag}"
+      done < "${sps_dir}/output-checks.txt"
+      table_row="${table_row}| $table_cell "
+    done
+    table_row="${table_row}|"
+    echo "${table_row}"
+  done
+
+  mv "${snippet}/README.tmp" "${snippet}/README.md"
+}
 
 echo "Shell: $SHELL $TEST1"
 
+test_os=$OS_NAME
 test_shell=$SHELL
 test_name=$SHELL_NAME
 test_version=$(cat /SHELL_VERSION)
@@ -29,17 +72,14 @@ find sps/* -type d | while read -r snippet; do
   fi
 
   ## Update output-checks.txt
-  check_replace="s/^${test_name} ${test_version} .*$/${test_name} ${test_version} ${test_status}/g"
+  check_replace="s/^${test_os} ${test_name} ${test_version} .*$/${test_os} ${test_name} ${test_version} ${test_status}/g"
   sed "$check_replace" "${snippet}/output-checks.txt" > "${snippet}/output-checks.tmp"
   mv "${snippet}/output-checks.tmp" "${snippet}/output-checks.txt"
-  echo "${test_name} ${test_version} ${test_status}" >> "${snippet}/output-checks.txt"
+  echo "${test_os} ${test_name} ${test_version} ${test_status}" >> "${snippet}/output-checks.txt"
   sort "${snippet}/output-checks.txt" | uniq > "${snippet}/output-checks.tmp"
   mv "${snippet}/output-checks.tmp" "${snippet}/output-checks.txt"
 
-  sed -n "/## Compatibility/q;p" "${snippet}/README.md" > "${snippet}/README.tmp"
-
-  bash .github/scripts/readme.sh "${snippet}" >> "${snippet}/README.tmp"
-  mv "${snippet}/README.tmp" "${snippet}/README.md"
+  update_readme "${snippet}" >> "${snippet}/README.tmp"
 done
 
-echo
+

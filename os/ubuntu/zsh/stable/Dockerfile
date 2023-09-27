@@ -2,6 +2,8 @@ FROM ubuntu:22.04
 
 RUN apt-get update && apt-get -y install zsh && apt-get clean
 
+ENV OS_NAME=ubuntu
+
 ENV SHELL=/bin/zsh
 ENV SHELL_NAME=zsh
 

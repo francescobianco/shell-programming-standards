@@ -2,6 +2,7 @@ FROM fedora:38
 
 RUN dnf -y update && dnf -y install zsh && dnf clean all
 
+ENV OS_NAME=fedora
 ENV SHELL=/bin/zsh
 ENV SHELL_NAME=zsh
 

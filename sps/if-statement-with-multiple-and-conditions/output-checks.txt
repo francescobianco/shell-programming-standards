@@ -1,9 +1,4 @@
-BASH 5.1.16 ok
-Bash 5.1.16 ok
-Dash  ok
-SH Unknown shell: /bin/sh ok
-bash 5.1.16 ok
-zsh 5.8 ok
-zsh 5.8.1  fail
-zsh 5.9  fail
-zsh ciao ok
+fedora zsh 5.9  ok
+fedora zsh 5.9 ok
+ubuntu zsh 5.8.1  ok
+ubuntu zsh 5.8.1 ok
