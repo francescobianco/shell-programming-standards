@@ -4,5 +4,5 @@ Dash  ok
 SH Unknown shell: /bin/sh ok
 bash 5.1.16 ok
 zsh 5.8 ok
-zsh 5.9  ok
+zsh 5.9  fail
 zsh ciao ok

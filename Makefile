@@ -1,6 +1,6 @@
 
 build:
-	@bash .github/scripts/build.sh $(shell_name) $(shell_binary)
+	@bash sps/build --all
 
 ci-pull:
 	@git config --global user.email "ci@github.com"

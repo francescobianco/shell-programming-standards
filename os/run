@@ -8,5 +8,5 @@ if [ -z "${os_image}" ]; then
   exit 1
 fi
 
-docker build -t "${os_image}" "${os_image}"
+docker build -q -t "${os_image}" "${os_image}"
 docker run --rm -v "$(pwd):/${os_image}" -w "/${os_image}" "${os_image}" /bin/bash "${run_script}"

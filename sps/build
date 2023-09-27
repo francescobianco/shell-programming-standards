@@ -1,5 +1,15 @@
 #!/bin/bash
 
+if [ "$1" = "--all" ]; then
+  find os/* -type f -name Dockerfile | while read -r os_file; do
+    bash os/run "$(dirname "${os_file}")" sps/build
+  done
+  exit 0
+fi
+
+
+
+
 echo "Shell: $SHELL $TEST1"
 
 test_shell=$SHELL
