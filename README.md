@@ -2,4 +2,4 @@
 
 ## if
 
-- [`if` statement with multiple `and` conditions](sps/if-statement-with-multiple-and-conditions)
+- [**if** statement with multiple **and** conditions](sps/if-statement-with-multiple-and-conditions)
