@@ -1,6 +1,6 @@
-FROM fedora:38
+FROM ubuntu:22.04
 
-RUN dnf -y update && dnf -y install zsh && dnf clean all
+RUN apt-get update && apt-get -y install zsh && apt-get clean
 
 ENV SHELL=/bin/zsh
 ENV SHELL_NAME=zsh
